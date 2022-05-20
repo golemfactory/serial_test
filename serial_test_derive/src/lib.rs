@@ -128,7 +128,7 @@ fn serial_core(
 
     let reactor = reactor
         .map(|_r| quote!{tokio::runtime::Runtime::new().unwrap().block_on})
-        .unwrap_or(quote!{actix_rt::System::new("test").block_on});
+        .unwrap_or(quote!{actix_rt::System::new().block_on});
 
     let gen = if let Some(ret) = return_type {
         match asyncness {
