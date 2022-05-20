@@ -9,6 +9,10 @@ repository = "https://github.com/palfrey/serial_test/"
 readme = "README.md"
 categories = ["development-tools::testing"]
 
+[features]
+actix-rt2 = ["serial_test_derive/actix-rt2"]
+
+
 [dependencies]
 lazy_static = "1.2"
 parking_lot = ">= 0.10, < 0.12"
