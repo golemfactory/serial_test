@@ -126,9 +126,15 @@ fn serial_core(
         true => quote!{ #[test] },
     };
 
+    #[cfg(not(feature = "actix-rt2"))]
     let reactor = reactor
         .map(|_r| quote!{tokio::runtime::Runtime::new().unwrap().block_on})
         .unwrap_or(quote!{actix_rt::System::new("test").block_on});
+
+    #[cfg(feature = "actix-rt2")]
+        let reactor = reactor
+        .map(|_r| quote!{tokio::runtime::Runtime::new().unwrap().block_on})
+        .unwrap_or(quote!{actix_rt::System::new().block_on});
 
     let gen = if let Some(ret) = return_type {
         match asyncness {
@@ -208,6 +214,7 @@ fn parse_reactor(attrs: &Vec<TokenTree>, g: &Group) -> Ident {
         _ => panic!("Expected a single {{reactor_name}} as argument, got {:?}", attrs),
     }
 }
+
 
 #[test]
 fn test_serial() {

@@ -12,6 +12,9 @@ categories = ["development-tools::testing"]
 [lib]
 proc-macro = true
 
+[features]
+actix-rt2 = []
+
 [dependencies]
 quote = "1.0"
 syn = { version="1.0", features=["full"] }
